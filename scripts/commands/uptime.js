@@ -7,7 +7,7 @@ moment.tz.setDefault("Asia/Dhaka");
 
 module.exports.config = {
   name: "uptime",
-  version: "1.0.1",
+  version: "1.0.0",
   permission: 0,
   credits: "IMRAN",
   description: "Shows bot uptime and status info (image based)",
@@ -24,11 +24,9 @@ module.exports.config = {
 
 module.exports.run = async ({ api, event }) => {
   try {
-    // logging للتأكد من تنفيذ الأمر
-    console.log(`[uptime] Command triggered by senderID: ${event.senderID}`);
-
     const timeStart = performance.now();
 
+    // Get process usage (we don't strictly need the result here, but could log/extend)
     let usageInfo = null;
     try {
       usageInfo = await pidusage(process.pid);
@@ -36,9 +34,11 @@ module.exports.run = async ({ api, event }) => {
       console.warn("pidusage failed:", e.message);
     }
 
+    // Time/date in Dhaka
     const currentTime = moment().format("h:mm:ss A");
     const currentDate = moment().format("DD/MM/YYYY");
 
+    // Uptime formatting
     const uptimeInSeconds = process.uptime();
     const hours = Math.floor(uptimeInSeconds / 3600);
     const minutes = Math.floor((uptimeInSeconds % 3600) / 60);
@@ -48,18 +48,19 @@ module.exports.run = async ({ api, event }) => {
     const timeEnd = performance.now();
     const ping = Math.round(timeEnd - timeStart);
 
+    // Body text (fallback if image generation fails)
     const bodyText = `🐥 ʙᴏᴛ ꜱᴛᴀᴛᴜꜱ 🐥
 🕒 ᴜᴘᴛɪᴍᴇ : ${hours}ʜ ${minutes}ᴍ ${seconds}ꜱ
 📶 ᴘɪɴɢ    : ${ping}ᴍꜱ
 ⏰ ᴛɪᴍᴇ    : ${currentTime}
 📅 ᴅᴀᴛᴇ    : ${currentDate}
-👑 ᴏᴡɴᴇʀ   : ɪᴍʀᴀɴ_🦋`;
+👑 ᴏᴡɴᴇʀ   : djamel_🦋`;
 
     const apiUrl = "https://uptime-imran.onrender.com/up";
 
     const messagePayload = { body: bodyText };
 
-    // محاولة جلب صورة من API
+    // Try image API
     try {
       const response = await axios.get(apiUrl, {
         responseType: "stream",
@@ -68,7 +69,7 @@ module.exports.run = async ({ api, event }) => {
           ping: `${ping}ms`,
           time: currentTime,
           date: currentDate,
-          owner: "IMRAN",
+          owner: "DJAMEL",
         },
         timeout: 8000,
       });
