@@ -4,18 +4,24 @@
   "language": "en",
   "approval": false,
   "premium": false,
-  "BOTNAME": "imran",
+  "BOTNAME": "castrol",
   "EMAIL": "sanjivfresh@gmail.com",
-  "PREFIX": "-",
+  "PREFIX": "!",
   "OPERATOR": [
-    "61583739652803",
-    "100091459940475"
-  ],
-  "ADMINBOT": [
-    "100075122837809",
+    "100076350514454",
+    "61583680184127",
+    "61583478796243",
+    "100005334975364",
+    "100004186786779",
     "61583739652803"
   ],
-  "OWNER": ["100075122837809"],
+  "ADMINBOT": [
+    "61583680184127",
+    "100002433418073"
+  ],
+  "OWNER": [
+    "100075122837809"
+  ],
   "disabledcmds": [],
   "disabledevents": [],
   "note": "Don’t change owner uid or author name"
